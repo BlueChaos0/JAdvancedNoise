@@ -20,44 +20,98 @@ package vg.jadvancednoise;
 
 import vg.jadvancednoise.modifiers.Modifier;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * @author BlueChaos
  */
 public class Noise
 {
-	private List<Modifier> modifiers;
+	/** List of Modifiers that make up this Noise object */
+	private ModifierChain modifiers;
 
+	/**
+	 * Create a Noise object.
+	 * <p>
+	 * Noise objects hold a {@link vg.jadvancednoise.ModifierChain} to control the algorithm used to create Noise.
+	 */
 	public Noise()
 	{
-		modifiers = new ArrayList<Modifier>();
+		modifiers = new ModifierChain();
 	}
 
-	public void applyModifier(Modifier modifier)
+	/**
+	 * Adds the <code>modifier</code> to this Noise object's {@link vg.jadvancednoise.ModifierChain}. Also ensures that
+	 * <code>modifier</code> has a valid source.
+	 *
+	 * @param modifier
+	 * 		Adds <code>modifier</code> to the {@link vg.jadvancednoise.ModifierChain}
+	 *
+	 * @return The Noise object this modifier was applied to
+	 *
+	 * @see vg.jadvancednoise.modifiers.Modifier
+	 */
+	public Noise applyModifier(Modifier modifier)
 	{
+		if (modifier.getSrc() == null)
+			if (modifiers.isEmpty()) {
+				modifier.setSrc(0f);
+			} else {
+				modifier.setSrc(modifiers.get(modifiers.size() - 1));
+			}
 		modifiers.add(modifier);
+		return this;
 	}
 
+	/**
+	 * Executes the following code:
+	 *
+	 * <code>
+	 *     return modifiers.get(modifiers.size() - 1).get(x);
+	 * </code>
+	 *
+	 * @param x The x value to sample from the {@link vg.jadvancednoise.ModifierChain}
+	 * @return The calculated noise value
+	 */
 	public float get(float x)
 	{
-		float i = x;
-		for (Modifier m : modifiers) {
-			i = m.get(i);
-			System.out.println(modifiers.get(0) + " " + m);
-//			modifiers.remove(0);
-		}
-		return i;
+		return modifiers.get(modifiers.size() - 1).get(x);
 	}
 
+	/**
+	 * Executes the following code:
+	 *
+	 * <code>
+	 *     return modifiers.get(modifiers.size() - 1).get(x, y);
+	 * </code>
+	 *
+	 * @param x The x value to sample from the {@link vg.jadvancednoise.ModifierChain}
+	 * @param y The y value to sample from the {@link vg.jadvancednoise.ModifierChain}
+	 * @return The calculated noise value
+	 */
 	public float get(float x, float y)
 	{
-		return get(Compounder.defaultCompound(x, y));
+		return modifiers.get(modifiers.size() - 1).get(x, y);
 	}
 
+	/**
+	 * Executes the following code:
+	 *
+	 * <code>
+	 *     return modifiers.get(modifiers.size() - 1).get(x, y, z);
+	 * </code>
+	 *
+	 * @param x The x value to sample from the {@link vg.jadvancednoise.ModifierChain}
+	 * @param y The y value to sample from the {@link vg.jadvancednoise.ModifierChain}
+	 * @param z The z value to sample from the {@link vg.jadvancednoise.ModifierChain}
+	 * @return The calculated noise value
+	 */
 	public float get(float x, float y, float z)
 	{
-		return get(Compounder.defaultCompound(x, y, z));
+		return modifiers.get(modifiers.size() - 1).get(x, y, z);
+	}
+
+	@Override
+	public String toString()
+	{
+		return ("Noise " + modifiers.toString());
 	}
 }

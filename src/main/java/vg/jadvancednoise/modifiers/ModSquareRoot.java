@@ -21,34 +21,23 @@ package vg.jadvancednoise.modifiers;
 /**
  * @author BlueChaos
  */
-public class ModifierConstant extends Modifier
+public class ModSquareRoot extends Modifier
 {
-	private float constant = 0.5f;
-
-	public ModifierConstant()
-	{
-	}
-
-	public ModifierConstant(float constant)
-	{
-		this.constant = constant;
-	}
-
 	@Override
 	public float get(float x)
 	{
-		return constant;
+		return (float) Math.sqrt(src.get(x));
 	}
 
 	@Override
 	public float get(float x, float y)
 	{
-		return constant;
+		return (float) Math.sqrt(src.get(x, y));
 	}
 
 	@Override
 	public float get(float x, float y, float z)
 	{
-		return constant;
+		return (float) Math.sqrt(src.get(x, y));
 	}
 }

@@ -19,24 +19,22 @@
 package vg.jadvancednoise;
 
 import org.junit.Test;
-import vg.jadvancednoise.modifiers.ModifierConstant;
-import vg.jadvancednoise.modifiers.ModifierSin;
-import vg.jadvancednoise.modifiers.ModifierSquareRoot;
+import vg.jadvancednoise.modifiers.ModSphere;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
-
-import static org.junit.Assert.*;
+import java.io.File;
 
 public class NoiseTest
 {
-
 	@Test
-	public void testConstantSin() throws Exception
+	public void testSphere() throws Exception
 	{
-		Noise n = new Noise();
-		n.applyModifier(new ModifierSquareRoot());
-		n.applyModifier(new ModifierSin());
-		System.out.println(n.get(1f, 3f, 6f));
+		Noise n = new Noise().applyModifier(new ModSphere().setCenterX(5).setRadius(10).setSeed(404L).setVolatility(
+				.2f));
+		System.out.println(n.toString());
+		System.out.println(n.get(5f));
 	}
 
 	@Test
@@ -45,14 +43,19 @@ public class NoiseTest
 		BufferedImage bufferedImage = new BufferedImage(640, 480, BufferedImage.TYPE_INT_ARGB);
 
 		Noise n = new Noise();
-		n.applyModifier(new ModifierSquareRoot());
-		n.applyModifier(new ModifierSin());
+		n.applyModifier(new ModSphere().setCenterX(320f).setCenterY(240f).setRadius(200f).setVolatility(0.2f));
 
-		for(int x = 0; x < 640; x++) {
-			for(int y = 0; y < 480; y++) {
-
+		float g;
+		for (int x = 0; x < 640; x++) {
+			for (int y = 0; y < 480; y++) {
+				g = n.get(x, y);
+				bufferedImage.setRGB(x, y, new Color(g, g, g).getRGB());
 			}
+
 		}
+
+		File outFile = new File("image.png");
+		ImageIO.write(bufferedImage, "png", outFile);
 	}
 
 }

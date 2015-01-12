@@ -16,37 +16,26 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package vg.jadvancednoise.modifiers;
+package vg.jadvancednoise;
+
+import vg.jadvancednoise.modifiers.Modifier;
+
+import java.util.ArrayList;
 
 /**
+ * ModifierChain is a list of Modifiers that keeps track of the order that the Modifiers should be kept in.
+ * TODO: Change ModifierChain to extend Stack IF it is more efficient.
+ * @see vg.jadvancednoise.modifiers.Modifier
  * @author BlueChaos
  */
-public class ModifierFixRange extends Modifier
+public class ModifierChain extends ArrayList<Modifier>
 {
-	public ModifierFixRange()
-	{
-	}
-
-	public ModifierFixRange(float min, float max)
-	{
-
-	}
-
 	@Override
-	public float get(float x)
+	public String toString()
 	{
-		return 0;
-	}
-
-	@Override
-	public float get(float x, float y)
-	{
-		return 0;
-	}
-
-	@Override
-	public float get(float x, float y, float z)
-	{
-		return 0;
+		StringBuilder sb = new StringBuilder();
+		sb.append("Modifiers: \n  ");
+		forEach(m -> sb.append(m.toString() + "\n  "));
+		return (sb.toString());
 	}
 }

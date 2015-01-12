@@ -18,12 +18,63 @@
 
 package vg.jadvancednoise.modifiers;
 
+import vg.jadvancednoise.modifiers.util.ModParameter;
+
 /**
  * @author BlueChaos
  */
 public abstract class Modifier
 {
+	protected ModParameter src = null;
+
+	/**
+	 * Return a noise value from a 1D value
+	 *
+	 * @param x The x value to sample
+	 * @return The calculated noise value
+	 */
 	public abstract float get(float x);
+
+	/**
+	 * Return a noise value from a 2D value
+	 *
+	 * @param x The x value to sample
+	 * @param y The y value to sample
+	 * @return The calculated noise value
+	 */
 	public abstract float get(float x, float y);
+
+	/**
+	 * Return a noise value from a 3D value
+	 *
+	 * @param x The x value to sample
+	 * @param y The y value to sample
+	 * @param z The z value to sample
+	 * @return The calculated noise value
+	 */
 	public abstract float get(float x, float y, float z);
+
+	public Modifier setSrc(Modifier src)
+	{
+		this.src = new ModParameter(src);
+		return this;
+	}
+
+	public Modifier setSrc(float src)
+	{
+		this.src = new ModParameter(src);
+		return this;
+	}
+
+	public ModParameter getSrc()
+	{
+		return src;
+	}
+
+	@Override
+	public String toString()
+	{
+		return src.toString();
+	}
+
 }

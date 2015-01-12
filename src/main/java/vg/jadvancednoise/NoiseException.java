@@ -21,19 +21,11 @@ package vg.jadvancednoise;
 /**
  * @author BlueChaos
  */
-public class Compounder
+public class NoiseException extends Exception
 {
-	public static float defaultCompound(float... floats)
-	{
-		return add(floats);
-	}
+	public NoiseException() {}
 
-	public static float add(float... floats)
-	{
-		float i = 0f;
-		for(float f : floats) {
-			i += f;
-		}
-		return i;
+	public NoiseException(String msg) {
+		super(msg);
 	}
 }

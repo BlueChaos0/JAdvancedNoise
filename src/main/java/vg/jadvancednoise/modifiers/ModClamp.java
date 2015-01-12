@@ -18,28 +18,53 @@
 
 package vg.jadvancednoise.modifiers;
 
-import vg.jadvancednoise.Compounder;
-
 /**
+ * Clamps the source value
+ * <ul>
+ *
+ * </ul>
  * @author BlueChaos
  */
-public class ModifierSquareRoot extends Modifier
+public class ModClamp extends Modifier
 {
+	protected static final float DEFAULT_MIN = 0f;
+	protected static final float DEFAULT_MAX = 1f;
+	protected float min, max;
+
+	public ModClamp()
+	{
+		min = DEFAULT_MIN;
+		max = DEFAULT_MAX;
+	}
+
+	public ModClamp(float min, float max)
+	{
+		this.min = min;
+		this.max = max;
+	}
+
 	@Override
 	public float get(float x)
 	{
-		return (float) Math.sqrt(x);
+		return Math.max(min, Math.min(max, src.get(x)));
 	}
 
 	@Override
 	public float get(float x, float y)
 	{
-		return (float) Math.sqrt(Compounder.defaultCompound(x, y));
+		return Math.max(min, Math.min(max, src.get(x, y)));
 	}
 
 	@Override
 	public float get(float x, float y, float z)
 	{
-		return (float) Math.sqrt(Compounder.defaultCompound(x, y, z));
+		return Math.max(min, Math.min(max, src.get(x, y, z)));
+	}
+
+	@Override
+	public String toString()
+	{
+		String m = "\n    ";
+		return ("CLAMP: " + m + "min:" + min + m + "max:" + max);
 	}
 }
