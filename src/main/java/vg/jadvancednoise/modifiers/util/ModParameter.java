@@ -59,7 +59,7 @@ public class ModParameter extends Modifier
 	public float get(float x)
 	{
 		if(isModifier())
-			modifier.get(x);
+			return modifier.get(x);
 		return value;
 	}
 
@@ -67,7 +67,7 @@ public class ModParameter extends Modifier
 	public float get(float x, float y)
 	{
 		if(isModifier())
-			modifier.get(x, y);
+			return modifier.get(x, y);
 		return value;
 	}
 
@@ -75,7 +75,7 @@ public class ModParameter extends Modifier
 	public float get(float x, float y, float z)
 	{
 		if(isModifier())
-			modifier.get(x, y, z);
+			return modifier.get(x, y, z);
 		return value;
 	}
 
