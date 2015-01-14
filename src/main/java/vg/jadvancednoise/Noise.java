@@ -61,6 +61,11 @@ public class Noise
 		return this;
 	}
 
+	public void init()
+	{
+		modifiers.forEach(m -> m.init());
+	}
+
 	/**
 	 * Executes the following code:
 	 *
@@ -107,6 +112,11 @@ public class Noise
 	public float get(float x, float y, float z)
 	{
 		return modifiers.get(modifiers.size() - 1).get(x, y, z);
+	}
+
+	public void dispose()
+	{
+		modifiers.forEach(m -> m.dispose());
 	}
 
 	@Override

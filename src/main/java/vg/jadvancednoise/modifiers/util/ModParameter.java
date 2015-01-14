@@ -56,6 +56,12 @@ public class ModParameter extends Modifier
 	}
 
 	@Override
+	public void init()
+	{
+
+	}
+
+	@Override
 	public float get(float x)
 	{
 		if(isModifier())
@@ -77,6 +83,12 @@ public class ModParameter extends Modifier
 		if(isModifier())
 			return modifier.get(x, y, z);
 		return value;
+	}
+
+	@Override
+	public void dispose()
+	{
+
 	}
 
 	@Override

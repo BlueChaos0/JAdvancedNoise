@@ -44,6 +44,12 @@ public class ModClamp extends Modifier
 	}
 
 	@Override
+	public void init()
+	{
+
+	}
+
+	@Override
 	public float get(float x)
 	{
 		return Math.max(min, Math.min(max, src.get(x)));
@@ -59,6 +65,12 @@ public class ModClamp extends Modifier
 	public float get(float x, float y, float z)
 	{
 		return Math.max(min, Math.min(max, src.get(x, y, z)));
+	}
+
+	@Override
+	public void dispose()
+	{
+
 	}
 
 	@Override

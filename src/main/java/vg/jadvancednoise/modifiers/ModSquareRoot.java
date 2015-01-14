@@ -24,6 +24,11 @@ package vg.jadvancednoise.modifiers;
 public class ModSquareRoot extends Modifier
 {
 	@Override
+	public void init()
+	{
+	}
+
+	@Override
 	public float get(float x)
 	{
 		return (float) Math.sqrt(src.get(x));
@@ -39,5 +44,10 @@ public class ModSquareRoot extends Modifier
 	public float get(float x, float y, float z)
 	{
 		return (float) Math.sqrt(src.get(x, y));
+	}
+
+	@Override
+	public void dispose()
+	{
 	}
 }

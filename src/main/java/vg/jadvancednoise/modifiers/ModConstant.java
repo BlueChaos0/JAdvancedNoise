@@ -37,6 +37,12 @@ public class ModConstant extends Modifier
 	}
 
 	@Override
+	public void init()
+	{
+
+	}
+
+	@Override
 	public float get(float x)
 	{
 		return constant;
@@ -52,5 +58,11 @@ public class ModConstant extends Modifier
 	public float get(float x, float y, float z)
 	{
 		return constant;
+	}
+
+	@Override
+	public void dispose()
+	{
+
 	}
 }

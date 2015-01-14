@@ -27,6 +27,8 @@ public abstract class Modifier
 {
 	protected ModParameter src = null;
 
+	public abstract void init();
+
 	/**
 	 * Return a noise value from a 1D value
 	 *
@@ -53,6 +55,8 @@ public abstract class Modifier
 	 * @return The calculated noise value
 	 */
 	public abstract float get(float x, float y, float z);
+
+	public abstract void dispose();
 
 	public Modifier setSrc(Modifier src)
 	{

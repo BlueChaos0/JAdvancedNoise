@@ -28,6 +28,12 @@ public class ModSin extends Modifier
 	}
 
 	@Override
+	public void init()
+	{
+
+	}
+
+	@Override
 	public float get(float x)
 	{
 		return (float) Math.sin(src.get(x));
@@ -43,5 +49,11 @@ public class ModSin extends Modifier
 	public float get(float x, float y, float z)
 	{
 		return (float) Math.sin(src.get(x, y, z));
+	}
+
+	@Override
+	public void dispose()
+	{
+
 	}
 }

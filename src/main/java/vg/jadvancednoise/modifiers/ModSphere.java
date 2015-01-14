@@ -29,18 +29,22 @@ public class ModSphere extends Modifier
 {
 	/** Center values of the sphere */
 	protected ModParameter centerX = new ModParameter(0f), centerY = new ModParameter(0f), centerZ = new ModParameter
-			(0f);
-	protected float radius = 4f;
+			(0f), radius = new ModParameter(1f);
 	protected float volatility = 0f;
 	protected long seed = 10000L;
 	protected Random random = new Random();
+
+	@Override
+	public void init()
+	{
+	}
 
 	@Override
 	public float get(float x)
 	{
 		float dx = centerX.get(x) - x;
 		float dis = Math.abs(dx);
-		float val = ((radius - dis) / radius) + (volatility / 2 * rand());
+		float val = ((radius.get(x) - dis) / radius.get(x)) + (volatility / 2 * rand());
 		if (val < 0) val = 0;
 		if (val > 1) val = 1;
 		return val;
@@ -51,7 +55,7 @@ public class ModSphere extends Modifier
 	{
 		float dx = centerX.get(x, y) - x, dy = centerY.get(x, y) - y;
 		float dis = (float) (Math.sqrt(dx * dx + dy * dy));
-		float val = ((radius - dis) / radius) + (volatility / 2 * rand());
+		float val = ((radius.get(x, y) - dis) / radius.get(x, y)) + (volatility / 2 * rand());
 		if (val < 0) val = 0;
 		if (val > 1) val = 1;
 		return val;
@@ -62,10 +66,20 @@ public class ModSphere extends Modifier
 	{
 		float dx = centerX.get(x, y, z) - x, dy = centerY.get(x, y, z) - y, dz = centerZ.get(x, y, z) - z;
 		float dis = (float) (Math.sqrt(dx * dx + dy * dy + dz * dz));
-		float val = ((radius - dis) / radius) + (volatility / 2 * rand());
+		float val = ((radius.get(x, y, z) - dis) / radius.get(x, y, z)) + (volatility / 2 * rand());
 		if (val < 0) val = 0;
 		if (val > 1) val = 1;
 		return val;
+	}
+
+	@Override
+	public void dispose()
+	{
+		centerX = null;
+		centerY = null;
+		centerZ = null;
+		radius = null;
+		random = null;
 	}
 
 	public ModSphere setCenterX(float centerX)
@@ -106,7 +120,13 @@ public class ModSphere extends Modifier
 
 	public ModSphere setRadius(float radius)
 	{
-		this.radius = radius;
+		this.radius = new ModParameter(radius);
+		return this;
+	}
+
+	public ModSphere setRadius(Modifier radius)
+	{
+		this.radius = new ModParameter(radius);
 		return this;
 	}
 
